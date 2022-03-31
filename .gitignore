@@ -1,0 +1,12 @@
+#ignore build files
+*.o
+objs/*.o
+libft/*.a
+libft/*.o
+push_swap
+pyviz.py
+
+#ignore editor files
+.vscode
+.idea
+*.swp
