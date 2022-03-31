@@ -1,7 +1,9 @@
 ## File stuff
 
-SRCS		= $(SRCS_DIR)/push_swap.c
-OBJS		= $(patsubst $(SRCS_DIR)/%.c,$(OBJS_DIR)/%.o,$(SRCS))
+SRCS		= 	$(SRCS_DIR)/push_swap.c \
+				$(SRCS_DIR)/stack.c
+
+OBJS		= 	$(patsubst $(SRCS_DIR)/%.c,$(OBJS_DIR)/%.o,$(SRCS))
 
 INCLUDE_DIR	= includes
 SRCS_DIR	= srcs
