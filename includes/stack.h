@@ -1,11 +1,13 @@
 #ifndef STACK_H
-#define STACK_H
+# define STACK_H
+
+# include <stdlib.h>
 
 typedef struct s_stack
 {
 	int value;
-	struct s_stack next;
-	struct s_stack prev;
+	struct s_stack *next;
+	struct s_stack *prev;
 } t_stack;
 
 t_stack	*create_stack(int value); //creates a new stack element

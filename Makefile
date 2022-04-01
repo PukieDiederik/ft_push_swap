@@ -1,9 +1,11 @@
 ## File stuff
 
-SRCS		= 	$(SRCS_DIR)/push_swap.c \
-				$(SRCS_DIR)/stack.c
+FNAMES 		=	push_swap.c \
+				stack.c
 
-OBJS		= 	$(patsubst $(SRCS_DIR)/%.c,$(OBJS_DIR)/%.o,$(SRCS))
+SRCS		= 	$(addprefix $(SRCS_DIR)/,$(FNAMES))
+
+OBJS		= 	$(addprefix $(OBJS_DIR)/,$(FNAMES:.c=.o))
 
 INCLUDE_DIR	= includes
 SRCS_DIR	= srcs
@@ -23,6 +25,7 @@ LIBS		= -L libft -lft
 
 NAME		= push_swap
 RM			= rm -rf
+ECHO		= echo -e
 
 # Colors
 BLACK			= \033[0;30m
@@ -40,28 +43,26 @@ RESET			= \033[0m
 ## Targets
 all: $(NAME)
 
-$(OBJS_DIR)/%.o: $(SRCS) $(OBJS_DIR)
-	@echo "$(GREEN)>>>>> Compiling <<<<<$(RESET)"
-	gcc -c $< -o $@
+$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
+	@$(ECHO) "$(GREEN)>>>>> Compiling <<<<<$(RESET)"
+	gcc $(INCLUDES) $(LIBS) -c $< -o $@
 
 $(OBJS_DIR):
-	@test -d $(OBJS_DIR) || \
-	mkdir $(OBJS_DIR) && \
-	echo "$(BLUE)Directory '$(CYAN)$(OBJS_DIR)/$(BLUE)' doesn't exist. Creating '$(CYAN)$(OBJS_DIR)/$(BLUE)'$(RESET)"
+	@test -d $(OBJS_DIR) || mkdir $(OBJS_DIR) && $(ECHO) "$(BLUE)Directory '$(CYAN)$(OBJS_DIR)/$(BLUE)' doesn't exist. Creating '$(CYAN)$(OBJS_DIR)/$(BLUE)'$(RESET)"
 
 # regular targets
-$(NAME): $(OBJS)
-	@echo "$(GREEN)>>>>> Linking <<<<<$(RESET)"
+$(NAME): $(OBJS_DIR) $(OBJS)
+	@$(ECHO) "$(GREEN)>>>>> Linking <<<<<$(RESET)"
 	$(CC) $(OBJS) -o $(NAME)
 
 clean:
-	@echo "$(GREEN)>>>>> Cleaning <<<<<$(RESET)"
+	@$(ECHO) "$(GREEN)>>>>> Cleaning <<<<<$(RESET)"
 	$(RM) $(OBJS)
-	@echo "Cleaning libft"
+	@$(ECHO) "Cleaning libft"
 	@make -C libft clean
 
 fclean: clean
-	@echo "Applying full clean"
+	@$(ECHO) "Applying full clean"
 	@$(RM) $(OBJS_DIR) $(NAME)
 	@make -C libft fclean
 
