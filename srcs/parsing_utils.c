@@ -53,6 +53,7 @@ int ft_strcmp(char *str1, char *str2)
 int is_valid_arg(char *str)
 {
     char *tmp;
+    unsigned int len;
 
     tmp = str;
     if (*tmp == '-')
@@ -60,14 +61,12 @@ int is_valid_arg(char *str)
     while (*tmp)
         if (!ft_isdigit(*tmp++))
             return (0);
-    if (ft_strlen(str) >= 10)
-    {
-        if (*str == '-') {
-            if (ft_strcmp(str, "-2147483648") > 0)
-                return (0);
-        }
-        else if (ft_strcmp(str, "2147483647") > 0)
-                return (0);
+    len = ft_strlen(str);
+    if (*str == '-') {
+        if (len >= 11 && ft_strcmp(str, "-2147483648") > 0)
+            return (0);
     }
+    else if (len >= 10 && ft_strcmp(str, "2147483647") > 0)
+            return (0);
     return (1);
 }

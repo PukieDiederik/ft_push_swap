@@ -44,7 +44,7 @@ all: $(NAME)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
 	@$(ECHO) "$(GREEN)>>>>> Compiling <<<<<$(RESET)"
-	gcc $(INCLUDES) $(LIBS) -c $< -o $@
+	gcc $(INCLUDES) $(LIBS) $(CFLAGS) -c $< -o $@
 
 $(OBJS_DIR):
 	@test -d $(OBJS_DIR) || mkdir $(OBJS_DIR) && $(ECHO) "$(BLUE)Directory '$(CYAN)$(OBJS_DIR)/$(BLUE)' doesn't exist. Creating '$(CYAN)$(OBJS_DIR)/$(BLUE)'$(RESET)"
@@ -55,7 +55,7 @@ $(LIBFT):
 # regular targets
 $(NAME): $(LIBFT) $(OBJS_DIR) $(OBJS)
 	@$(ECHO) "$(GREEN)>>>>> Linking <<<<<$(RESET)"
-	$(CC) $(OBJS) $(INCLUDES) $(LIBS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(INCLUDES) $(LIBS) -o $(NAME)
 
 clean:
 	@$(ECHO) "$(GREEN)>>>>> Cleaning <<<<<$(RESET)"
