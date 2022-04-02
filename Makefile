@@ -1,7 +1,6 @@
 ## File stuff
 
-FNAMES 		=	push_swap.c \
-				stack.c
+FNAMES 		=	push_swap.c stack.c parsing_utils.c
 
 SRCS		= 	$(addprefix $(SRCS_DIR)/,$(FNAMES))
 
@@ -10,14 +9,14 @@ OBJS		= 	$(addprefix $(OBJS_DIR)/,$(FNAMES:.c=.o))
 INCLUDE_DIR	= includes
 SRCS_DIR	= srcs
 OBJS_DIR	= objs
-LIBFT		= libft
+LIBFT		= libft/libft.a
 
 
 ## Compilation
 
 CC			= gcc
 CFLAGS		= -Wall -Werror -Wextra
-INCLUDES	= -I $(INCLUDE_DIR) -I $(LIBFT)
+INCLUDES	= -I $(INCLUDE_DIR) -I libft
 LIBS		= -L libft -lft
 
 
@@ -50,10 +49,13 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
 $(OBJS_DIR):
 	@test -d $(OBJS_DIR) || mkdir $(OBJS_DIR) && $(ECHO) "$(BLUE)Directory '$(CYAN)$(OBJS_DIR)/$(BLUE)' doesn't exist. Creating '$(CYAN)$(OBJS_DIR)/$(BLUE)'$(RESET)"
 
+$(LIBFT):
+	make -C libft bonus
+
 # regular targets
-$(NAME): $(OBJS_DIR) $(OBJS)
+$(NAME): $(LIBFT) $(OBJS_DIR) $(OBJS)
 	@$(ECHO) "$(GREEN)>>>>> Linking <<<<<$(RESET)"
-	$(CC) $(OBJS) -o $(NAME)
+	$(CC) $(OBJS) $(INCLUDES) $(LIBS) -o $(NAME)
 
 clean:
 	@$(ECHO) "$(GREEN)>>>>> Cleaning <<<<<$(RESET)"

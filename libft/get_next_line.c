@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <limits.h>
+#include <stdio.h>
 
 int		assign_read(int *amount_read, char **read_buff, int fd);
 void	read_file(t_buffer **buff, int fd, int *i);
@@ -109,9 +109,9 @@ char	*get_line(t_buffer *buff, int fd)
 
 char	*get_next_line(int fd)
 {
-	static t_buffer	buff_arr[OPEN_MAX] = {{0}};
+	static t_buffer	buff_arr[FOPEN_MAX] = {{0}};
 
-	if (fd < 0 || BUFFER_SIZE < 1 || fd >= OPEN_MAX)
+	if (fd < 0 || BUFFER_SIZE < 1 || fd >= FOPEN_MAX)
 		return (0);
 	if (buff_arr[fd].buff == 0)
 	{

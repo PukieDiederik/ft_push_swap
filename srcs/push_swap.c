@@ -1,6 +1,14 @@
 #include <stdio.h>
+#include "stack.h"
+#include "push_swap.h"
+#include "libft.h"
 
-int main()
+int main(int argc, char **argv)
 {
-	printf("Hello world");
+    t_stack *stack = parse_args(argc - 1, argv + 1);
+    if (!stack) {
+        printf("error\n");
+        return (1);
+    }
+    printf("%d\n", stack->value);
 }
