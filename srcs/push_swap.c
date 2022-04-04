@@ -5,10 +5,15 @@
 
 int main(int argc, char **argv)
 {
-    t_stack *stack = parse_args(argc - 1, argv + 1);
-    if (!stack) {
+    t_stack *input = parse_args(argc - 1, argv + 1);
+    unsigned int size;
+
+    if (!input) {
         printf("error\n");
         return (1);
     }
-    printf("Amount of elements: %u\n", get_size_stack(stack));
+
+    size = get_size_stack(input);
+
+    printf("Amount of elements: %u\n", size);
 }
