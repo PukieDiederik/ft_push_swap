@@ -81,8 +81,8 @@ int has_duplicates(t_stack *s){
 	t_stack *current;
 	t_stack *next;
 	int cur_value;
-	int i;
-	int size;
+	unsigned int i;
+	unsigned int size;
 
 	if (!s)
 		return (0);

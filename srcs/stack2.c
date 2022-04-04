@@ -16,3 +16,22 @@ unsigned int	get_size_stack(const t_stack *s)
 	}
 	return (size);
 }
+
+int *stack_to_array(const t_stack *s)
+{
+	int *arr;
+	int size;
+	int i;
+
+	if (!s)
+		return (0);
+	size = get_size_stack(s);
+	arr = malloc(size * sizeof(int));
+	i = -1;
+	while(++i < size)
+	{
+		arr[i] = s->value;
+		s = s->next;
+	}
+	return (arr);
+}
