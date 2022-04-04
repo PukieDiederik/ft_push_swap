@@ -10,5 +10,5 @@ int main(int argc, char **argv)
         printf("error\n");
         return (1);
     }
-    printf("%d\n", stack->value);
+    printf("Amount of elements: %u\n", get_size_stack(stack));
 }
