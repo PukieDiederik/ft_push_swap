@@ -4,5 +4,6 @@
 #include "stack.h"
 
 t_stack *parse_args(int argc, char **argv);
+void quicksort(int *arr, int start, int end);
 
 #endif

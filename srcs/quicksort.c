@@ -1,5 +1,6 @@
 #include "libft.h"
 #include "push_swap.h"
+#include <stdio.h>
 
 static int partition(int *arr, int start, int end);
 
@@ -9,10 +10,8 @@ void quicksort(int *arr, int start, int end)
 
     if (start >= end || start < 0)
         return ;
-
     p = partition(arr, start, end);
-
-    quicksort(arr, start, p - 1);
+    quicksort(arr, start, p);
     quicksort(arr, p + 1, end);
 }
 
@@ -27,7 +26,7 @@ static int partition(int *arr, int start, int end)
     i = start;
     j = start - 1;
     while (++j < end - 1) {
-        if (arr[j] < pivot) {
+        if (arr[j] <= pivot) {
             temp = arr[j];
             arr[j] = arr[i];
             arr[i++] = temp;

@@ -1,4 +1,5 @@
 #include "stack.h"
+#include "push_swap.h"
 
 unsigned int	get_size_stack(const t_stack *s)
 {
@@ -31,7 +32,29 @@ int *stack_to_array(const t_stack *s)
 	while(++i < size)
 	{
 		arr[i] = s->value;
-		s = s->next;
+		s = s->prev; //because of the way the lists get created
 	}
 	return (arr);
+}
+
+void stack_index(t_stack *s)
+{
+    int size;
+    int i;
+    int j;
+    int *sorted;
+
+    size = (int) get_size_stack(s);
+    sorted = stack_to_array(s);
+    quicksort(sorted, 0, size);
+    i = 0;
+    while (i++ < size)
+    {
+        j = 0;
+        while (j < size && s->value != sorted[j])
+            j++;
+        s->value = j;
+        s = s->next;
+    }
+    free(sorted);
 }
