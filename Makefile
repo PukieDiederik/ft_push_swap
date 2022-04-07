@@ -19,12 +19,18 @@ CFLAGS		= -Wall -Werror -Wextra
 INCLUDES	= -I $(INCLUDE_DIR) -I libft
 LIBS		= -L libft -lft
 
-
 ## Other
 
 NAME		= push_swap
 RM			= rm -rf
-ECHO		= echo
+MAKE		= make -s
+# Echo (Different on Linux and Mac)
+ifeq ($(shell uname),Linux)
+	ECHO	= echo -e
+else
+	ECHO	= echo
+endif
+
 
 # Colors
 BLACK			= \033[0;30m
@@ -42,32 +48,31 @@ RESET			= \033[0m
 ## Targets
 all: $(NAME)
 
-
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
-	@$(ECHO) "$(GREEN)>>>>> Compiling $(RESET)$(notdir $<)$(GREEN) -> $(RESET)$(notdir $@)$(RESET)"
+	@$(ECHO) "\e$(GREEN)>>>>> Compiling $(RESET)$(notdir $<)$(GREEN) -> $(RESET)$(notdir $@)$(RESET)"
 	@gcc $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(OBJS_DIR):
 	@test -d $(OBJS_DIR) || mkdir $(OBJS_DIR) && $(ECHO) "$(BLUE)Directory '$(CYAN)$(OBJS_DIR)/$(BLUE)' doesn't exist. Creating '$(CYAN)$(OBJS_DIR)/$(BLUE)'$(RESET)"
 
 $(LIBFT):
-	make -C libft bonus
+	@$(MAKE) -C libft bonus
 
 # regular targets
 $(NAME): $(LIBFT) $(OBJS_DIR) $(OBJS)
 	@$(ECHO) "$(GREEN)>>>>> Linking <<<<<$(RESET)"
-	$(CC) $(CFLAGS) $(LIBS) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
 
 clean:
 	@$(ECHO) "$(GREEN)>>>>> Cleaning <<<<<$(RESET)"
 	$(RM) $(OBJS)
 	@$(ECHO) "Cleaning libft"
-	@make -C libft clean
+	@$(MAKE) -C libft clean
 
 fclean: clean
 	@$(ECHO) "Applying full clean"
 	@$(RM) $(OBJS_DIR) $(NAME)
-	@make -C libft fclean
+	@$(MAKE) -C libft fclean
 
 re: fclean all
 
