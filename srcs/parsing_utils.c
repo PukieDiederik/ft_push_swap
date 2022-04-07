@@ -2,6 +2,7 @@
 #include "libft.h"
 
 int is_valid_arg(char *str);
+int has_duplicates(t_stack *s);
 
 t_stack *parse_args(int argc, char **argv)
 {
@@ -34,6 +35,11 @@ t_stack *parse_args(int argc, char **argv)
         }
         free(split);
     }
+    if (has_duplicates(stack))
+	{
+		clear_stack(stack);
+		return (0);
+	}
     return (stack);
 }
 
@@ -69,4 +75,30 @@ int is_valid_arg(char *str)
     else if (len >= 10 && ft_strcmp(str, "2147483647") > 0)
             return (0);
     return (1);
+}
+
+int has_duplicates(t_stack *s){
+	t_stack *current;
+	t_stack *next;
+	int cur_value;
+	unsigned int i;
+	unsigned int size;
+
+	if (!s)
+		return (0);
+	next = s;
+	size = get_size_stack(s);
+	while (--size > 0)
+	{
+		cur_value = next->value;
+		current = next->next;
+		next = next->next;
+		i = size;
+		while (i-- > 0) {
+			if (current->value == cur_value)
+				return (1);
+			current = current->next;
+		}
+	}
+	return (0);
 }

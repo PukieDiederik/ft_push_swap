@@ -1,6 +1,6 @@
 ## File stuff
 
-FNAMES 		=	push_swap.c stack.c parsing_utils.c quicksort.c
+FNAMES 		=	push_swap.c stack.c stack2.c parsing_utils.c quicksort.c
 
 SRCS		= 	$(addprefix $(SRCS_DIR)/,$(FNAMES))
 
@@ -24,7 +24,7 @@ LIBS		= -L libft -lft
 
 NAME		= push_swap
 RM			= rm -rf
-ECHO		= echo -e
+ECHO		= echo
 
 # Colors
 BLACK			= \033[0;30m
@@ -42,9 +42,10 @@ RESET			= \033[0m
 ## Targets
 all: $(NAME)
 
+
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
-	@$(ECHO) "$(GREEN)>>>>> Compiling <<<<<$(RESET)"
-	gcc $(INCLUDES) $(LIBS) $(CFLAGS) -c $< -o $@
+	@$(ECHO) "$(GREEN)>>>>> Compiling $(RESET)$(notdir $<)$(GREEN) -> $(RESET)$(notdir $@)$(RESET)"
+	@gcc $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(OBJS_DIR):
 	@test -d $(OBJS_DIR) || mkdir $(OBJS_DIR) && $(ECHO) "$(BLUE)Directory '$(CYAN)$(OBJS_DIR)/$(BLUE)' doesn't exist. Creating '$(CYAN)$(OBJS_DIR)/$(BLUE)'$(RESET)"
@@ -55,7 +56,7 @@ $(LIBFT):
 # regular targets
 $(NAME): $(LIBFT) $(OBJS_DIR) $(OBJS)
 	@$(ECHO) "$(GREEN)>>>>> Linking <<<<<$(RESET)"
-	$(CC) $(CFLAGS) $(OBJS) $(INCLUDES) $(LIBS) -o $(NAME)
+	$(CC) $(CFLAGS) $(LIBS) $(OBJS) -o $(NAME)
 
 clean:
 	@$(ECHO) "$(GREEN)>>>>> Cleaning <<<<<$(RESET)"
@@ -70,4 +71,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: $(NAME) all clean fclean re
+.PHONY: all clean fclean re
