@@ -15,10 +15,14 @@ t_stack	*create_stack(int value) //creates a new stack element
 }
 t_stack	*remove_stack(t_stack *s) //removes (and returns) a stack from the list
 {
-	s->prev->next = s->next;
-	s->next->prev = s->prev;
-	s->prev = s;
-	s->next = s;
+	t_stack *tmp;
+
+	tmp = s;
+//	*s = (*s)->prev;
+	(tmp)->prev->next = (tmp)->next;
+	(tmp)->next->prev = (tmp)->prev;
+	(tmp)->prev = s;
+	(tmp)->next = s;
 	return (s);
 }
 void	delete_stack(t_stack *s) //deletes/frees the stack element
