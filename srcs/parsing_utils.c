@@ -1,5 +1,6 @@
 #include "stack.h"
 #include "libft.h"
+#include <stdio.h>
 
 int is_valid_arg(char *str);
 int has_duplicates(t_stack *s);
@@ -62,17 +63,21 @@ int is_valid_arg(char *str)
     unsigned int len;
 
     tmp = str;
-    if (*tmp == '-')
+    if (*tmp == '-' || *tmp == '+')
         tmp++;
-    while (*tmp)
+    while (*tmp == '0')
+    	tmp++;
+	len = ft_strlen(str) - (tmp - str);
+	if (len > 10 || (ft_strlen(str) == 1 && (*str == '+' || *str == '-')))
+		return (0);
+	while (*tmp)
         if (!ft_isdigit(*tmp++))
             return (0);
-    len = ft_strlen(str);
     if (*str == '-') {
-        if (len >= 11 && ft_strcmp(str, "-2147483648") > 0)
+        if (len == 10 && ft_strcmp(str + ft_strlen(str) - len, "2147483648") > 0)
             return (0);
     }
-    else if (len >= 10 && ft_strcmp(str, "2147483647") > 0)
+    else if (len == 10 && ft_strcmp(str + ft_strlen(str) - len, "2147483647") > 0)
             return (0);
     return (1);
 }
