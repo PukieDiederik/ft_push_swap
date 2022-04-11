@@ -2,33 +2,47 @@
 #include "stack.h"
 #include <stdio.h>
 
-int qs_partition(t_stack *a, t_stack *b, int start, int end);
+void qs_partition(t_stack **a, t_stack **b, int amount);
 
-void generate(t_stack *a)
+void generate(t_stack **a)
 {
-	unsigned int size = get_size_stack(a);
 	t_stack *b = 0;
 
-	qs_partition(a, b, 0, size);
+    qs_partition(a, &b, 5);
 }
 
-int qs_partition(t_stack *a, t_stack *b, int start, int end)
+void qs_partition(t_stack **a, t_stack **b, int amount)
 {
-	int i = -1;
-	int p = (end - 1 - start) / 2;
-	while (++i < end - start)
-	{
-		if (a->value <= p)
-		{
-			a = a->prev;
-			b = add_stack(b, remove_stack(a->next));
-			printf("pb\n");
-		}
-		else
-		{
-			a = a->prev;
-			printf("ra\n");
-		}
-	}
-	return (0);
+    int i = -1;
+    int j = 0;
+    int size = (int)get_size_stack(*a);
+    while (++i < size)
+    {
+        printf("pb\n");
+        *a = (*a)->prev;
+        *b = add_stack(*b, remove_stack((*a)->next));
+    }
+    *a = 0;
+    i = 0;
+    while (++i < amount)
+    {
+        int p = size - ((size / amount) * i);
+        int b_size = (int)get_size_stack(*b);
+        j = -1;
+        while(++j < b_size)
+        {
+            if ((*b)->value >= p)
+            {
+                *b = (*b)->prev;
+                *a = add_stack(*a, remove_stack((*b)->next));
+                printf("pa\n");
+            }
+            else
+            {
+                *b = (*b)->prev;
+                printf("rb\n");
+            }
+        }
+    }
+    amount++;
 }

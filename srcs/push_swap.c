@@ -31,7 +31,7 @@ int main(int argc, char **argv)
 //        input = input->prev;
 //    }
 //    printf("Amount of elements: %u\n", size);
-	generate(input);
+	generate(&input);
     free(sorted);
     clear_stack(input);
 }
