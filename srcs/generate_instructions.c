@@ -9,19 +9,15 @@ void push_b(t_stack **a, t_stack **b, int amount, int i);
 void generate(t_stack **a)
 {
 	t_stack *b = 0;
-	int i = 1;
-	int amount = 5;
+	int i = 0;
+	int amount = 10;
 
     qs_partition(a, &b, amount);
 	sort(a, &b);
-	push_b(a, &b, amount, i++);
-	sort(a, &b);
-	push_b(a, &b, amount, i++);
-	sort(a, &b);
-	push_b(a, &b, amount, i++);
-	sort(a, &b);
-	push_b(a, &b, amount, i++);
-	sort(a, &b);
+	while(++i < amount) {
+		push_b(a, &b, amount, i);
+		sort(a, &b);
+	}
 	while ((*a)->value != 0)
 	{
 		*a = (*a)->prev;
