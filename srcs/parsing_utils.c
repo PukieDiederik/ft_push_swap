@@ -17,19 +17,19 @@ t_stack *parse_args(int argc, char **argv)
         split = ft_split(argv[argc], ' ');
         if (!split)
         {
-            clear_stack(stack);
+            stack_clear(stack);
             return (0);
         }
         i = 0;
         while (split[i])
         {
             if (is_valid_arg(split[i]))
-                stack = add_stack(stack, create_stack(ft_atoi(split[i])));
+                stack = stack_add(stack, stack_create(ft_atoi(split[i])));
             else {
                 while (split[i])
                     free(split[i++]);
                 free(split);
-                clear_stack(stack);
+                stack_clear(stack);
                 return (0);
             }
             free(split[i++]);
@@ -38,7 +38,7 @@ t_stack *parse_args(int argc, char **argv)
     }
     if (has_duplicates(stack))
 	{
-		clear_stack(stack);
+        stack_clear(stack);
 		return (0);
 	}
     return (stack);
@@ -93,7 +93,7 @@ int has_duplicates(t_stack *s){
 	if (!s)
 		return (0);
 	next = s;
-	size = get_size_stack(s);
+	size = stack_get_size(s);
 	while (--size > 0)
 	{
 		cur_value = next->value;

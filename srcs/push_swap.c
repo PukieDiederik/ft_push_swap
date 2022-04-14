@@ -13,7 +13,7 @@ int main(int argc, char **argv)
 //        printf("error\n");
 //        return (1);
 //    }
-//    size = get_size_stack(input);
+//    size = stack_get_size(input);
 //    quicksort(sorted, 0, size);
 //    unsigned int i = -1;
 //    while (++i < size)
@@ -33,5 +33,5 @@ int main(int argc, char **argv)
 //    printf("Amount of elements: %u\n", size);
 	generate(&input);
     free(sorted);
-    clear_stack(input);
+    stack_clear(input);
 }

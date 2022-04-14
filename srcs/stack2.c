@@ -1,7 +1,7 @@
 #include "stack.h"
 #include "push_swap.h"
 
-unsigned int	get_size_stack(const t_stack *s)
+unsigned int	stack_get_size(const t_stack *s)
 {
 	t_stack *current;
 	int size;
@@ -26,7 +26,7 @@ int *stack_to_array(const t_stack *s)
 
 	if (!s)
 		return (0);
-	size = get_size_stack(s);
+	size = stack_get_size(s);
 	arr = malloc(size * sizeof(int));
 	i = -1;
 	while(++i < size)
@@ -44,7 +44,7 @@ void stack_index(t_stack *s)
     int j;
     int *sorted;
 
-    size = (int) get_size_stack(s);
+    size = (int) stack_get_size(s);
     sorted = stack_to_array(s);
     quicksort(sorted, 0, size);
     i = 0;

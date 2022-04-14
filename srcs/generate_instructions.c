@@ -11,7 +11,7 @@ void generate(t_stack **a)
 	t_stack *b = 0;
 	int i = 0;
 	int amount = 5;
-    if (get_size_stack(*a) > 100)
+    if (stack_get_size(*a) > 100)
         amount = 10;
 
     qs_partition(a, &b, amount);
@@ -31,7 +31,7 @@ void qs_partition(t_stack **a, t_stack **b, int amount)
 {
     int i = -1;
     int j = 0;
-    int size = (int)get_size_stack(*a);
+    int size = (int) stack_get_size(*a);
     while (++i < size)
     {
     	if ((*a)->value == 0)
@@ -42,20 +42,20 @@ void qs_partition(t_stack **a, t_stack **b, int amount)
 		}
         printf("pb\n");
         *a = (*a)->prev;
-        *b = add_stack(*b, remove_stack((*a)->next));
+        *b = stack_add(*b, stack_remove((*a)->next));
     }
     i = 0;
     while (++i < amount)
     {
         int p = size - ((size / amount) * i);
-        int b_size = (int)get_size_stack(*b);
+        int b_size = (int) stack_get_size(*b);
         j = -1;
         while(++j < b_size)
         {
             if ((*b)->value >= p)
             {
                 *b = (*b)->prev;
-                *a = add_stack(*a, remove_stack((*b)->next));
+                *a = stack_add(*a, stack_remove((*b)->next));
                 printf("pa\n");
             }
             else
@@ -75,11 +75,11 @@ void sort(t_stack **a, t_stack **b)
 		if (((*a)->value > (*b)->value && (*a)->next->value < (*b)->value)
 			|| ((*a)->value == 0 && (*a)->next->value < (*b)->value))
 		{
-			*b = (*b)->prev;
-			*a = add_stack(*a, remove_stack((*b)->next));
-			if (*b == *a)
-				*b = 0;
-			printf("pa\n");
+            *b = (*b)->prev;
+            *a = stack_add(*a, stack_remove((*b)->next));
+            if (*b == *a)
+                *b = 0;
+            printf("pa\n");
 		}
 		else
 		{
@@ -99,7 +99,7 @@ void sort(t_stack **a, t_stack **b)
 
 void push_b(t_stack **a, t_stack **b, int amount, int i)
 {
-	int size = (int)get_size_stack(*a);
+	int size = (int) stack_get_size(*a);
 	int j;
 	int p = (size - (size / amount) * (amount - i));
 
@@ -113,7 +113,7 @@ void push_b(t_stack **a, t_stack **b, int amount, int i)
 	while (j++ < (size / amount))
 	{
 		*a = (*a)->prev;
-		*b = add_stack(*b, remove_stack((*a)->next));
+		*b = stack_add(*b, stack_remove((*a)->next));
 		printf("pb\n");
 	}
 }
