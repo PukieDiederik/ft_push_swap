@@ -10,7 +10,9 @@ void generate(t_stack **a)
 {
 	t_stack *b = 0;
 	int i = 0;
-	int amount = 10;
+	int amount = 5;
+    if (get_size_stack(*a) > 100)
+        amount = 10;
 
     qs_partition(a, &b, amount);
 	sort(a, &b);
