@@ -20,19 +20,21 @@ t_stack *parse_args(int argc, char **argv)
             stack_clear(stack);
             return (0);
         }
-        i = 0;
-        while (split[i])
+        i = 1;
+        while (split[i] != 0)
+        	i++;
+        while (--i >= 0)
         {
             if (is_valid_arg(split[i]))
                 stack = stack_add(stack, stack_create(ft_atoi(split[i])));
             else {
-                while (split[i])
-                    free(split[i++]);
+                while (i >= 0)
+                    free(split[i--]);
                 free(split);
                 stack_clear(stack);
                 return (0);
             }
-            free(split[i++]);
+            free(split[i]);
         }
         free(split);
     }

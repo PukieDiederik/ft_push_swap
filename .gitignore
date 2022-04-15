@@ -4,6 +4,7 @@ objs/*.o
 libft/*.a
 libft/*.o
 push_swap
+checker
 pyviz.py
 
 #ignore editor files
