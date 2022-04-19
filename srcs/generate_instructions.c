@@ -25,10 +25,10 @@ void generate(t_stack **a)
 //	}
 	if ((*a)->value < (int)stack_get_size(*a) / 2)
 		while ((*a)->value != 0)
-        	rotate_a(a);
+        	rrotate_a(a);
 	else
 		while ((*a)->value != 0)
-			rrotate_a(a);
+			rotate_a(a);
 }
 
 void qs_partition(t_stack **a, t_stack **b, int amount)
