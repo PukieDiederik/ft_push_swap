@@ -12,47 +12,61 @@ t_stack *sort_find_smallest(t_stack **a, t_stack **b);
 void generate(t_stack **a)
 {
 	t_stack *b = 0;
-	int i = 0;
+//	int i = 0;
 	int amount = 5;
     if (stack_get_size(*a) > 100)
         amount = 10;
 
     qs_partition(a, &b, amount);
 	sort(a, &b);
-	while(++i < amount) {
-		push_to_b(a, &b, amount, i);
-		sort(a, &b);
-	}
+//	while(++i < amount) {
+//		push_to_b(a, &b, amount, i);
+//		sort(a, &b);
+//	}
 	while ((*a)->value != 0)
         rotate_a(a);
 }
 
 void qs_partition(t_stack **a, t_stack **b, int amount)
 {
-    int i = -1;
+    int i = 0;
     int j = 0;
     int size = (int) stack_get_size(*a);
-    while (++i < size)
-    {
-    	if ((*a)->value == 0)
-            rotate_a(a);
-		else
-            push_b(a, b);
-    }
-    i = 0;
-    while (++i < amount)
-    {
-        int p = size - ((size / amount) * i);
-        int b_size = (int) stack_get_size(*b);
-        j = -1;
-        while(++j < b_size)
+    int v_size;
+    while (i++ < amount)
+	{
+    	v_size = stack_get_size(*a);
+		int p = size - ((size / amount) * i);
+		j = 0;
+		while(++j < v_size)
         {
-            if ((*b)->value >= p)
-                push_a(a, b);
+            if ((*a)->value >= p && (*a)->value != 0)
+                push_b(a, b);
             else
-                rotate_b(b);
+                rotate_a(a);
         }
-    }
+	}
+//    while (++i < size)
+//    {
+//    	if ((*a)->value == 0)
+//            rotate_a(a);
+//		else
+//            push_b(a, b);
+//    }
+//    i = 0;
+//    while (++i < amount)
+//    {
+//        int p = size - ((size / amount) * i);
+//        int b_size = (int) stack_get_size(*b);
+//        j = -1;
+//        while(++j < b_size)
+//        {
+//            if ((*b)->value >= p)
+//                push_a(a, b);
+//            else
+//                rotate_b(b);
+//        }
+//    }
 }
 
 void sort(t_stack **a, t_stack **b)
@@ -103,21 +117,21 @@ t_stack *sort_find_smallest(t_stack **a, t_stack **b)
         while (!((tmp->value > tmp2->value && tmp->next->value < tmp2->value)
                || (tmp->value == 0 && tmp->next->value < tmp2->value)))
         {
-//            printf("val: %d\n: ", tmp->value);
             if (tmp->value > tmp2->value)
                 tmp = tmp->next;
             else
                 tmp = tmp->prev;
             cost++;
         }
-//        printf("i: %d\n", i);
-        cost += i % ((size / 2) + 1);
+        if (i > size / 2)
+        	cost += (size / 2) - (i - (size / 2));
+        else
+        	cost += i;
         if (cost < smallest_opps)
         {
             smallest_stack = tmp2;
             smallest_opps = cost;
             smallest_dir = i / (size / 2 + 1);
-//            printf("value: %d\t\tcost: %d\n", tmp2->value, cost);
         }
     }
     if (!smallest_stack)
