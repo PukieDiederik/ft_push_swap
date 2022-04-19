@@ -13,9 +13,9 @@ void generate(t_stack **a)
 {
 	t_stack *b = 0;
 //	int i = 0;
-	int amount = 5;
+	int amount = 20;
     if (stack_get_size(*a) > 100)
-        amount = 10;
+        amount = 50;
 
     qs_partition(a, &b, amount);
 	sort(a, &b);
@@ -23,28 +23,29 @@ void generate(t_stack **a)
 //		push_to_b(a, &b, amount, i);
 //		sort(a, &b);
 //	}
-	while ((*a)->value != 0)
-        rotate_a(a);
+	if ((*a)->value < (int)stack_get_size(*a) / 2)
+		while ((*a)->value != 0)
+        	rotate_a(a);
+	else
+		while ((*a)->value != 0)
+			rrotate_a(a);
 }
 
 void qs_partition(t_stack **a, t_stack **b, int amount)
 {
-    int i = 0;
-    int j = 0;
-    int size = (int) stack_get_size(*a);
+//    int i = 0;
+//    int j = 0;
+//    int size = (int) stack_get_size(*a);
     int v_size;
-    while (i++ < amount)
+    while (*a != (*a)->next)
 	{
     	v_size = stack_get_size(*a);
-		int p = size - ((size / amount) * i);
-		j = 0;
-		while(++j < v_size)
-        {
-            if ((*a)->value >= p && (*a)->value != 0)
-                push_b(a, b);
-            else
-                rotate_a(a);
-        }
+		int p = v_size - amount;
+//		j = 0;
+		if ((*a)->value >= p && (*a)->value != 0)
+			push_b(a, b);
+		else
+			rotate_a(a);
 	}
 //    while (++i < size)
 //    {
