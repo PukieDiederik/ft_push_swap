@@ -6,7 +6,7 @@
 /*   By: drobert- <drobert-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 14:09:25 by drobert-          #+#    #+#             */
-/*   Updated: 2022/04/22 14:09:28 by drobert-         ###   ########.fr       */
+/*   Updated: 2022/04/22 14:41:42 by drobert-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@
 t_stack *push_a(t_stack **a, t_stack **b);
 t_stack *push_b(t_stack **a, t_stack **b);
 
-//returns pointer to top of s
+void	rotate(t_stack **a, t_stack **b);
+void	rrotate(t_stack **a, t_stack **b);
+//returns pointer to top of stack
 t_stack *rotate_a(t_stack **a);
 t_stack *rrotate_a(t_stack **a);
 t_stack *rotate_b(t_stack **b);

@@ -10,17 +10,12 @@ t_stack *sort_find_smallest(t_stack **a, t_stack **b);
 void generate(t_stack **a)
 {
 	t_stack *b = 0;
-//	int i = 0;
 	unsigned int amount = 20;
     if (stack_get_size(*a) > 100)
-        amount = 50;
+		amount = 50;
 
     qs_partition(a, &b, amount);
 	sort(a, &b);
-//	while(++i < amount) {
-//		push_to_b(a, &b, amount, i);
-//		sort(a, &b);
-//	}
 	if ((*a)->value < (int)stack_get_size(*a) / 2)
 		while ((*a)->value != 0)
         	rrotate_a(a);
@@ -50,6 +45,12 @@ void sort(t_stack **a, t_stack **b)
 	{
         sort_find_smallest(a, b);
 	}
+}
+
+int is_a_correct(t_stack **a, t_stack *target)
+{
+	return ((*a)->value > target->value && (*a)->next->value < target->value)
+		   || ((*a)->value == 0 && (*a)->next->value < target->value);
 }
 
 unsigned int get_amount_moves(t_stack **a, t_stack **b, t_stack *target)
@@ -88,13 +89,20 @@ void push_target(t_stack **a, t_stack **b, t_stack *target)
 
 	//rotate to it and push
 	if (dir)
+	{
+		while (!is_a_correct(a, target) && (*a)->value > target->value && *b != target)
+			rrotate(a, b);
 		while (*b != target)
 			rrotate_b(b);
+	}
 	else
+	{
+		while (!is_a_correct(a, target) && (*a)->value < target->value && *b != target)
+			rotate(a, b);
 		while (*b != target)
 			rotate_b(b);
-	while (!(((*a)->value > (*b)->value && (*a)->next->value < (*b)->value)
-			 || ((*a)->value == 0 && (*a)->next->value < (*b)->value)))
+	}
+	while (!is_a_correct(a, target))
 	{
 		if ((*a)->value > (*b)->value)
 			rrotate_a(a);

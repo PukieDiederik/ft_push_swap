@@ -1,6 +1,21 @@
 #include "operations.h"
 
-//returns pointer to top of s
+void rotate(t_stack **a, t_stack **b)
+{
+    *a = (*a)->prev;
+    *b = (*b)->prev;
+    ft_putstr_fd("rr\n", 1);
+}
+
+void rrotate(t_stack **a, t_stack **b)
+{
+    *a = (*a)->next;
+    *b = (*b)->next;
+
+    ft_putstr_fd("rrr\n", 1);
+}
+
+//returns pointer to top of stack
 t_stack *rotate_a(t_stack **a)
 {
     *a = (*a)->prev;
