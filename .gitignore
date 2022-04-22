@@ -6,7 +6,7 @@ libft/*.o
 push_swap
 checker
 pyviz.py
-
+max.out
 #ignore editor files
 .vscode
 .idea

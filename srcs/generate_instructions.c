@@ -10,10 +10,9 @@ t_stack *sort_find_smallest(t_stack **a, t_stack **b);
 void generate(t_stack **a)
 {
 	t_stack *b = 0;
-	unsigned int amount = 20;
-    if (stack_get_size(*a) > 100)
+	unsigned int amount = 25;
+    if (stack_get_size(*a) > 150)
 		amount = 50;
-
     qs_partition(a, &b, amount);
 	sort(a, &b);
 	if ((*a)->value < (int)stack_get_size(*a) / 2)
@@ -58,23 +57,36 @@ unsigned int get_amount_moves(t_stack **a, t_stack **b, t_stack *target)
 	unsigned int size = stack_get_size(*b);
 	t_stack *tmp = *a;
 	t_stack *tmp2 = *b;
-	unsigned int i = 0;
+	int i = 0;
+	int cost = 0;
+	unsigned int dir;
+	unsigned int adir = 0;
 
-	while (tmp2 != target && i++ < size)
+	while (tmp2 != target && i++ < (int)size)
 		tmp2 = tmp2->prev;
 
-	if (i > size / 2)
-		i = (size / 2) - (i - (size / 2));
+	dir = i / (size / 2 + 1);
+	if (i > (int)size / 2)
+		i = ((int)size / 2) - (i - ((int)size / 2));
 	while (!((tmp->value > tmp2->value && tmp->next->value < tmp2->value)
 			 || (tmp->value == 0 && tmp->next->value < tmp2->value)))
 	{
 		if (tmp->value > tmp2->value)
+		{
 			tmp = tmp->next;
+			adir = 1;
+		}
 		else
 			tmp = tmp->prev;
-		i++;
+		cost++;
 	}
-	return (i);
+	if (adir == dir)
+	{
+		if (cost > i)
+			return (cost);
+		return (i);
+	}
+	return (i + cost);
 }
 
 void push_target(t_stack **a, t_stack **b, t_stack *target)
@@ -117,14 +129,11 @@ t_stack *sort_find_smallest(t_stack **a, t_stack **b)
 {
 	t_stack *smallest_stack;
 	unsigned int smallest_opps;
-	//    unsigned int smallest_dir;
 	unsigned int i;
 	unsigned int cost;
 	unsigned int size;
-	//    t_stack *tmp;
 	t_stack *tmp2;
 
-	//    tmp = *a;
 	size = stack_get_size(*b);
 	i = -1;
 	tmp2 = (*b)->next;
@@ -138,27 +147,10 @@ t_stack *sort_find_smallest(t_stack **a, t_stack **b)
 		{
 			smallest_stack = tmp2;
 			smallest_opps = cost;
-	//            smallest_dir = i / (size / 2 + 1);
 		}
 	}
 	if (!smallest_stack)
 		return (0);
 	push_target(a, b, smallest_stack);
-    //rotate to it and push
-//    if (smallest_dir)
-//        while (*b != smallest_stack)
-//            rrotate_b(b);
-//    else
-//        while (*b != smallest_stack)
-//            rotate_b(b);
-//    while (!(((*a)->value > (*b)->value && (*a)->next->value < (*b)->value)
-//        || ((*a)->value == 0 && (*a)->next->value < (*b)->value)))
-//    {
-//        if ((*a)->value > (*b)->value)
-//            rrotate_a(a);
-//        else
-//            rotate_a(a);
-//    }
-//	push_a(a, b);
     return (smallest_stack);
 }
