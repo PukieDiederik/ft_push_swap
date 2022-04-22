@@ -1,5 +1,17 @@
-#ifndef OPPERATIONS_H
-#define OPPERATIONS_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   operations.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: drobert- <drobert-@student.42lisboa.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/22 14:09:25 by drobert-          #+#    #+#             */
+/*   Updated: 2022/04/22 14:09:28 by drobert-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef OPERATIONS_H
+# define OPERATIONS_H
 
 #include "stack.h"
 #include "libft.h"
