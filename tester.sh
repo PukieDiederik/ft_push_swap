@@ -4,13 +4,13 @@ let in=0
 let out=0
 let max=0
 let maxin=0
-let j=10000
+let j=1000
 
 
 
 for ((i=0; i<j; i++))
 do
-	in=$(ruby -e "puts (0..99).to_a.shuffle.join(' ')")
+	in=$(ruby -e "puts (0..499).to_a.shuffle.join(' ')")
 	out=$(./push_swap $in)
 	num=$(echo $out | wc -w | xargs)
 	if ((num > max))

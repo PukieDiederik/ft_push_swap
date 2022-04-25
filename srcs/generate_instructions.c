@@ -3,17 +3,21 @@
 #include "limits.h"
 #include "operations.h"
 
-void qs_partition(t_stack **a, t_stack **b, unsigned int amount);
+void qs_partition(t_stack **a, t_stack **b, unsigned int amount, int *sequence);
 void sort(t_stack **a, t_stack **b);
 t_stack *sort_find_smallest(t_stack **a, t_stack **b);
+int *get_sequence(t_stack **a);
+int is_seq(int *seq, int val);
 
 void generate(t_stack **a)
 {
 	t_stack *b = 0;
-	unsigned int amount = 25;
+	unsigned int amount = 30;
+	int *seq = get_sequence(a);
+
     if (stack_get_size(*a) > 150)
 		amount = 50;
-    qs_partition(a, &b, amount);
+    qs_partition(a, &b, amount, seq);
 	sort(a, &b);
 	if ((*a)->value < (int)stack_get_size(*a) / 2)
 		while ((*a)->value != 0)
@@ -21,20 +25,65 @@ void generate(t_stack **a)
 	else
 		while ((*a)->value != 0)
 			rotate_a(a);
+	free(seq);
 }
 
-void qs_partition(t_stack **a, t_stack **b, unsigned int amount)
+int is_seq(int *seq, int val)
 {
+	int i;
+
+	i = -1;
+	while (*(seq + ++i) != 0)
+		if (*(seq + i) == val)
+			return (1);
+	return (0);
+}
+
+int *get_sequence(t_stack **a)
+{
+	t_stack *tmp;
+	t_stack *new_stack;
+	int lowest;
+	int *arr;
+
+	new_stack = 0;
+	tmp = *a;
+	while(tmp->next->value != 0)
+		tmp = tmp->next;
+	lowest = 0;
+	while (tmp->value != 0)
+	{
+		if (tmp->value > lowest)
+		{
+			new_stack = stack_add(new_stack, stack_create(tmp->value));
+			lowest = tmp->value;
+		}
+		tmp = tmp->prev;
+	}
+	stack_add(new_stack, stack_create(0));
+	arr = stack_to_array(new_stack);
+	stack_clear(new_stack);
+	return (arr);
+}
+
+void qs_partition(t_stack **a, t_stack **b, unsigned int amount, int *sequence)
+{
+	unsigned int i;
     unsigned int v_size;
 	int p;
-    while (*a != (*a)->next)
+	i = 0;
+	while (*(sequence + i))
+		i++;
+	v_size = stack_get_size(*a);
+    while (i < v_size - 1)
 	{
-    	v_size = stack_get_size(*a);
 		p = (int)v_size - (int)amount;
-		if ((*a)->value >= p && (*a)->value != 0)
+		if ((*a)->value >= p && (*a)->value != 0
+			&& !is_seq(sequence, (*a)->value))
 			push_b(a, b);
 		else
 			rotate_a(a);
+		v_size = stack_get_size(*a);
 	}
 }
 
