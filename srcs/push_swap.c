@@ -6,7 +6,7 @@
 /*   By: drobert- <drobert-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 15:43:07 by drobert-          #+#    #+#             */
-/*   Updated: 2022/04/26 15:49:26 by drobert-         ###   ########.fr       */
+/*   Updated: 2022/04/26 16:13:13 by drobert-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	main(int argc, char **argv)
 	t_stack			*input;
 	unsigned int	size;
 
+	free(0);
 	if (argc == 1)
 		return (0);
 	input = parse_args(argc - 1, argv + 1);

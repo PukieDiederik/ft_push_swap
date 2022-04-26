@@ -1,6 +1,5 @@
 #include "stack.h"
 #include "libft.h"
-#include <stdio.h>
 
 int is_valid_arg(char *str);
 int has_duplicates(t_stack *s);
@@ -15,8 +14,9 @@ t_stack *parse_args(int argc, char **argv)
     while (--argc >= 0)
     {
         split = ft_split(argv[argc], ' ');
-        if (!split)
+        if (!split || !split[0])
         {
+			free(split);
             stack_clear(stack);
             return (0);
         }
