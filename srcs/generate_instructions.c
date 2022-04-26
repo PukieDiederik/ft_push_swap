@@ -1,36 +1,51 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   generate_instructions.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: drobert- <drobert-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/26 16:28:48 by drobert-          #+#    #+#             */
+/*   Updated: 2022/04/26 17:07:16 by drobert-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 #include "stack.h"
 #include "limits.h"
 #include "operations.h"
 
-void qs_partition(t_stack **a, t_stack **b, unsigned int amount, int *sequence);
-void sort(t_stack **a, t_stack **b);
-t_stack *sort_find_smallest(t_stack **a, t_stack **b);
-int *get_sequence(t_stack **a);
-int is_seq(int *seq, int val);
+void	qs_partition(t_stack **a, t_stack **b, unsigned int amount, int *seq);
+void	sort(t_stack **a, t_stack **b);
+t_stack	*sort_find_smallest(t_stack **a, t_stack **b);
+int		*get_sequence(t_stack **a);
+int		is_seq(int *seq, int val);
 
-void generate(t_stack **a)
+void	generate(t_stack **a)
 {
-	t_stack *b = 0;
-	unsigned int amount = 30;
-	int *seq = get_sequence(a);
+	t_stack			*b;
+	unsigned int	amount;
+	int				*seq;
 
-    if (stack_get_size(*a) > 150)
+	b = 0;
+	amount = 30;
+	seq = get_sequence(a);
+	if (stack_get_size(*a) > 150)
 		amount = 50;
-    qs_partition(a, &b, amount, seq);
+	qs_partition(a, &b, amount, seq);
 	sort(a, &b);
 	if ((*a)->value < (int)stack_get_size(*a) / 2)
 		while ((*a)->value != 0)
-        	rrotate_a(a);
+			rrotate_a(a);
 	else
 		while ((*a)->value != 0)
 			rotate_a(a);
 	free(seq);
 }
 
-int is_seq(int *seq, int val)
+int	is_seq(int *seq, int val)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (*(seq + ++i) != 0)
@@ -39,16 +54,16 @@ int is_seq(int *seq, int val)
 	return (0);
 }
 
-int *get_sequence(t_stack **a)
+int	*get_sequence(t_stack **a)
 {
-	t_stack *tmp;
-	t_stack *new_stack;
-	int lowest;
-	int *arr;
+	t_stack	*tmp;
+	t_stack	*new_stack;
+	int		lowest;
+	int		*arr;
 
 	new_stack = 0;
 	tmp = *a;
-	while(tmp->next->value != 0)
+	while (tmp->next->value != 0)
 		tmp = tmp->next;
 	lowest = 0;
 	while (tmp->value != 0)
@@ -66,20 +81,21 @@ int *get_sequence(t_stack **a)
 	return (arr);
 }
 
-void qs_partition(t_stack **a, t_stack **b, unsigned int amount, int *sequence)
+void	qs_partition(t_stack **a, t_stack **b, unsigned int amount, int *seq)
 {
-	unsigned int i;
-    unsigned int v_size;
-	int p;
+	unsigned int	i;
+	unsigned int	v_size;
+	int				p;
+
 	i = 0;
-	while (*(sequence + i))
+	while (*(seq + i))
 		i++;
 	v_size = stack_get_size(*a);
-    while (i < v_size - 1)
+	while (i < v_size - 1)
 	{
 		p = (int)v_size - (int)amount;
 		if ((*a)->value >= p && (*a)->value != 0
-			&& !is_seq(sequence, (*a)->value))
+			&& !is_seq(seq, (*a)->value))
 			push_b(a, b);
 		else
 			rotate_a(a);
@@ -87,38 +103,43 @@ void qs_partition(t_stack **a, t_stack **b, unsigned int amount, int *sequence)
 	}
 }
 
-void sort(t_stack **a, t_stack **b)
+void	sort(t_stack **a, t_stack **b)
 {
-    while(*b)
+	while (*b)
 	{
-        sort_find_smallest(a, b);
+		sort_find_smallest(a, b);
 	}
 }
 
-int is_a_correct(t_stack **a, t_stack *target)
+int	is_a_correct(t_stack **a, t_stack *target)
 {
-	return ((*a)->value > target->value && (*a)->next->value < target->value)
-		   || ((*a)->value == 0 && (*a)->next->value < target->value);
+	return (((*a)->value > target->value && (*a)->next->value < target->value)
+		|| ((*a)->value == 0 && (*a)->next->value < target->value));
 }
 
-unsigned int get_amount_moves(t_stack **a, t_stack **b, t_stack *target)
+unsigned int	get_amount_moves(t_stack **a, t_stack **b, t_stack *target)
 {
-	unsigned int size = stack_get_size(*b);
-	t_stack *tmp = *a;
-	t_stack *tmp2 = *b;
-	int i = 0;
-	int cost = 0;
-	unsigned int dir;
-	unsigned int adir = 0;
+	unsigned int	size;
+	t_stack			*tmp;
+	t_stack			*tmp2;
+	int				i;
+	int				cost;
+	unsigned int	dir;
+	unsigned int	adir;
 
+	size = stack_get_size(*b);
+	tmp = *a;
+	tmp2 = *b;
+	i = 0;
+	cost = 0;
+	adir = 0;
 	while (tmp2 != target && i++ < (int)size)
 		tmp2 = tmp2->prev;
-
 	dir = i / (size / 2 + 1);
 	if (i > (int)size / 2)
 		i = ((int)size / 2) - (i - ((int)size / 2));
 	while (!((tmp->value > tmp2->value && tmp->next->value < tmp2->value)
-			 || (tmp->value == 0 && tmp->next->value < tmp2->value)))
+			|| (tmp->value == 0 && tmp->next->value < tmp2->value)))
 	{
 		if (tmp->value > tmp2->value)
 		{
@@ -138,17 +159,19 @@ unsigned int get_amount_moves(t_stack **a, t_stack **b, t_stack *target)
 	return (i + cost);
 }
 
-void push_target(t_stack **a, t_stack **b, t_stack *target)
+void	push_target(t_stack **a, t_stack **b, t_stack *target)
 {
-	unsigned int i = 0;
-	unsigned int size = stack_get_size(*b);
+	unsigned int i;
+	unsigned int size;
 	unsigned int dir;
-	t_stack *tmp = *b;
+	t_stack *tmp;
+
+	i = 0;
+	size = stack_get_size(*b);
+	tmp = *b;
 	while (tmp != target && i++ < size)
 		tmp = tmp->prev;
 	dir = i / (size / 2 + 1);
-
-	//rotate to it and push
 	if (dir)
 	{
 		while (!is_a_correct(a, target) && (*a)->value > target->value && *b != target)
@@ -173,15 +196,13 @@ void push_target(t_stack **a, t_stack **b, t_stack *target)
 	push_a(a, b);
 }
 
-//min inclusive, max exclusive
-t_stack *sort_find_smallest(t_stack **a, t_stack **b)
+t_stack	*sort_find_smallest(t_stack **a, t_stack **b)
 {
-	t_stack *smallest_stack;
-	unsigned int smallest_opps;
-	unsigned int i;
-	unsigned int cost;
-	unsigned int size;
-	t_stack *tmp2;
+	t_stack			*smallest_stack;
+	unsigned int	smallest_opps;
+	unsigned int	i;
+	unsigned int	size;
+	t_stack			*tmp2;
 
 	size = stack_get_size(*b);
 	i = -1;
@@ -191,15 +212,14 @@ t_stack *sort_find_smallest(t_stack **a, t_stack **b)
 	while (++i < size)
 	{
 		tmp2 = tmp2->prev;
-		cost = get_amount_moves(a, b, tmp2);
-		if (cost < smallest_opps)
+		if (get_amount_moves(a, b, tmp2) < smallest_opps)
 		{
 			smallest_stack = tmp2;
-			smallest_opps = cost;
+			smallest_opps = get_amount_moves(a, b, tmp2);
 		}
 	}
 	if (!smallest_stack)
 		return (0);
 	push_target(a, b, smallest_stack);
-    return (smallest_stack);
+	return (smallest_stack);
 }
