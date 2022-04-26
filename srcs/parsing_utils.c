@@ -67,9 +67,10 @@ int is_valid_arg(char *str)
     tmp = str;
     if (*tmp == '-' || *tmp == '+')
         tmp++;
-    while (*tmp == '0'){
+    if (!tmp)
+    	return (0);
+    while (*tmp == '0')
         tmp++;
-    }
 	len = ft_strlen(str) - (tmp - str);
 	if (len > 10 || (ft_strlen(str) == 1 && (*str == '+' || *str == '-')))
 		return (0);
