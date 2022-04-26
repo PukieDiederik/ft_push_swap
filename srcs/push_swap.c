@@ -14,6 +14,8 @@ int main(int argc, char **argv)
     stack_index(input);
     if (size == 3)
 		generate_3(&input);
+    else if (size == 5)
+		generate_5(&input);
     else
 		generate(&input);
     stack_clear(input);
