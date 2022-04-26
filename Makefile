@@ -1,8 +1,8 @@
 ## File stuff
 
-FNAMES 		=	push_swap.c parsing_utils.c quicksort.c generate_instructions.c \
+FNAMES 		=	push_swap.c parsing_utils.c quicksort.c generate_instructions.c small_generate.c\
 				stack.c stack2.c \
-				oper_rotate.c oper_push.c\
+				oper_rotate.c oper_push.c oper_swap.c\
 
 
 SRCS		= 	$(addprefix $(SRCS_DIR)/,$(FNAMES))

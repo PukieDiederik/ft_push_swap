@@ -28,5 +28,7 @@ t_stack *rrotate_a(t_stack **a);
 t_stack *rotate_b(t_stack **b);
 t_stack *rrotate_b(t_stack **a);
 
+t_stack *swap_a(t_stack **b);
+t_stack *swap_b(t_stack **b);
 
 #endif
