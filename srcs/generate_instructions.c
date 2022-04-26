@@ -6,7 +6,7 @@
 /*   By: drobert- <drobert-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:28:48 by drobert-          #+#    #+#             */
-/*   Updated: 2022/04/26 17:07:16 by drobert-         ###   ########.fr       */
+/*   Updated: 2022/04/26 17:09:43 by drobert-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,10 +161,10 @@ unsigned int	get_amount_moves(t_stack **a, t_stack **b, t_stack *target)
 
 void	push_target(t_stack **a, t_stack **b, t_stack *target)
 {
-	unsigned int i;
-	unsigned int size;
-	unsigned int dir;
-	t_stack *tmp;
+	unsigned int	i;
+	unsigned int	size;
+	unsigned int	dir;
+	t_stack			*tmp;
 
 	i = 0;
 	size = stack_get_size(*b);
