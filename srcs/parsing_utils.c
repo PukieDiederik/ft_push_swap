@@ -6,7 +6,7 @@
 /*   By: drobert- <drobert-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:19:50 by drobert-          #+#    #+#             */
-/*   Updated: 2022/04/28 13:04:45 by drobert-         ###   ########.fr       */
+/*   Updated: 2022/04/28 13:26:04 by drobert-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 int	is_valid_arg(char *str);
 int	has_duplicates(t_stack *s);
+int	parse_split(char **split, t_stack **s);
 
 t_stack	*parse_args(int argc, char **argv)
 {
 	t_stack	*stack;
-	int		i;
 	char	**split;
 
 	stack = 0;
@@ -32,24 +32,8 @@ t_stack	*parse_args(int argc, char **argv)
 			stack_clear(stack);
 			return (0);
 		}
-		i = 1;
-		while (split[i] != 0)
-			i++;
-		while (--i >= 0)
-		{
-			if (is_valid_arg(split[i]))
-				stack = stack_add(stack, stack_create(ft_atoi(split[i])));
-			else
-			{
-				while (i >= 0)
-					free(split[i--]);
-				free(split);
-				stack_clear(stack);
-				return (0);
-			}
-			free(split[i]);
-		}
-		free(split);
+		if (!parse_split(split, &stack))
+			return (0);
 	}
 	if (has_duplicates(stack))
 	{
@@ -57,6 +41,31 @@ t_stack	*parse_args(int argc, char **argv)
 		return (0);
 	}
 	return (stack);
+}
+
+int	parse_split(char **split, t_stack **s)
+{
+	int	i;
+
+	i = 1;
+	while (split[i] != 0)
+		i++;
+	while (--i >= 0)
+	{
+		if (is_valid_arg(split[i]))
+			*s = stack_add(*s, stack_create(ft_atoi(split[i])));
+		else
+		{
+			while (i >= 0)
+				free(split[i--]);
+			free(split);
+			stack_clear(*s);
+			return (0);
+		}
+		free(split[i]);
+	}
+	free(split);
+	return (1);
 }
 
 int	ft_strcmp(char *str1, char *str2)
@@ -70,21 +79,6 @@ int	ft_strcmp(char *str1, char *str2)
 	}
 	return ((*str1) - (*str2));
 }
-
-//Checks if the string is under the max/min int
-// int	check_under_max(char *str, int len)
-// {
-// 	if (*str == '-')
-// 	{
-// 		if (len == 10
-// 			&& ft_strcmp(str + ft_strlen(str) - len, "2147483648") > 0)
-// 			return (0);
-// 	}
-// 	else if (len == 10
-// 		&& ft_strcmp(str + ft_strlen(str) - len, "2147483647") > 0)
-// 		return (0);
-// 	return (1);
-// }
 
 //checks if string is all numbers and is within integer range
 int	is_valid_arg(char *str)
