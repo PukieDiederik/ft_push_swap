@@ -2,12 +2,17 @@
 
 FNAMES 		=	push_swap.c parsing_utils.c quicksort.c generate_instructions.c small_generate.c\
 				stack.c stack2.c \
-				oper_rotate.c oper_rotate2.c oper_push.c oper_swap.c\
+				oper_rotate.c oper_rotate2.c oper_push.c oper_swap.c
+
+HNAMES		=	operations.h push_swap.h stack.h
+
 
 
 SRCS		= 	$(addprefix $(SRCS_DIR)/,$(FNAMES))
 
 OBJS		= 	$(addprefix $(OBJS_DIR)/,$(FNAMES:.c=.o))
+
+HEADERS		=	$(addprefix $(INCLUDE_DIR)/,$(HNAMES))
 
 INCLUDE_DIR	= includes
 SRCS_DIR	= srcs
@@ -62,7 +67,7 @@ $(LIBFT):
 	@$(MAKE) -C libft bonus
 
 # regular targets
-$(NAME): $(LIBFT) $(OBJS_DIR) $(OBJS)
+$(NAME): $(LIBFT) $(OBJS_DIR) $(OBJS) $(HEADERS)
 	@$(ECHO) "$(GREEN)>>>>> Linking <<<<<$(RESET)"
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
 
