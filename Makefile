@@ -1,10 +1,11 @@
 ## File stuff
 
-FNAMES 		=	push_swap.c parsing_utils.c quicksort.c generate_instructions.c small_generate.c\
+FNAMES 		=	push_swap.c parsing_utils.c quicksort.c generate_instructions.c small_generate.c \
+				get_amount_moves.c sequence.c\
 				stack.c stack2.c \
 				oper_rotate.c oper_rotate2.c oper_push.c oper_swap.c
 
-HNAMES		=	operations.h push_swap.h stack.h
+HNAMES		=	operations.h push_swap.h stack.h generate.h
 
 
 
