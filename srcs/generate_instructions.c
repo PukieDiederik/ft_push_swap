@@ -6,7 +6,7 @@
 /*   By: drobert- <drobert-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:28:48 by drobert-          #+#    #+#             */
-/*   Updated: 2022/04/26 17:09:43 by drobert-         ###   ########.fr       */
+/*   Updated: 2022/04/28 13:30:00 by drobert-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 void	qs_partition(t_stack **a, t_stack **b, unsigned int amount, int *seq);
 void	sort(t_stack **a, t_stack **b);
-t_stack	*sort_find_smallest(t_stack **a, t_stack **b);
+t_stack	*sort_one(t_stack **a, t_stack **b);
 int		*get_sequence(t_stack **a);
 int		is_seq(int *seq, int val);
 
@@ -33,7 +33,10 @@ void	generate(t_stack **a)
 	if (stack_get_size(*a) > 150)
 		amount = 50;
 	qs_partition(a, &b, amount, seq);
-	sort(a, &b);
+	while (b)
+	{
+		sort_one(a, &b);
+	}
 	if ((*a)->value < (int)stack_get_size(*a) / 2)
 		while ((*a)->value != 0)
 			rrotate_a(a);
@@ -100,14 +103,6 @@ void	qs_partition(t_stack **a, t_stack **b, unsigned int amount, int *seq)
 		else
 			rotate_a(a);
 		v_size = stack_get_size(*a);
-	}
-}
-
-void	sort(t_stack **a, t_stack **b)
-{
-	while (*b)
-	{
-		sort_find_smallest(a, b);
 	}
 }
 
@@ -196,7 +191,7 @@ void	push_target(t_stack **a, t_stack **b, t_stack *target)
 	push_a(a, b);
 }
 
-t_stack	*sort_find_smallest(t_stack **a, t_stack **b)
+t_stack	*sort_one(t_stack **a, t_stack **b)
 {
 	t_stack			*smallest_stack;
 	unsigned int	smallest_opps;

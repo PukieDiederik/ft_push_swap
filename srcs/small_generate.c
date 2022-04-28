@@ -6,14 +6,14 @@
 /*   By: drobert- <drobert-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:15:46 by drobert-          #+#    #+#             */
-/*   Updated: 2022/04/26 16:17:03 by drobert-         ###   ########.fr       */
+/*   Updated: 2022/04/28 13:30:42 by drobert-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include "operations.h"
 
-t_stack	*sort_find_smallest(t_stack **a, t_stack **b);
+t_stack	*sort_one(t_stack **a, t_stack **b);
 
 void	generate_3(t_stack **a)
 {
@@ -51,6 +51,6 @@ void	generate_5(t_stack **a)
 		rotate_a(a);
 	push_b(a, &b);
 	generate_3(a);
-	sort_find_smallest(a, &b);
-	sort_find_smallest(a, &b);
+	sort_one(a, &b);
+	sort_one(a, &b);
 }
