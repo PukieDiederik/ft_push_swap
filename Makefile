@@ -24,7 +24,7 @@ LIBFT		= libft/libft.a
 ## Compilation
 
 CC			= gcc
-CFLAGS		= -Wall -Werror -Wextra
+CFLAGS		= -Wall -Werror -Wextra -fsanitize=address
 INCLUDES	= -I $(INCLUDE_DIR) -I libft
 LIBS		= -L libft -lft
 

@@ -4,7 +4,7 @@ let in=0
 let out=0
 let max=0
 let maxin=0
-let j=1000
+let j=10000
 
 
 
