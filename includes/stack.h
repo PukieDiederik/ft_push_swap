@@ -29,6 +29,6 @@ void			stack_clear(t_stack *s); //deletes the entire list of stacks
 t_stack			*stack_add(t_stack *orig, t_stack *s); // adds 's' after orig
 unsigned int	stack_get_size(const t_stack *s); // gets size of 's'
 int				*stack_to_array(const t_stack *s); //converts stack to array
-void			stack_index(t_stack *s);
+int				stack_index(t_stack *s);
 
 #endif

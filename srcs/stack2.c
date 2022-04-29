@@ -40,6 +40,8 @@ int	*stack_to_array(const t_stack *s)
 		return (0);
 	size = stack_get_size(s);
 	arr = malloc(size * sizeof(int));
+	if (!arr)
+		return (0);
 	i = -1;
 	while (++i < size)
 	{
@@ -49,7 +51,7 @@ int	*stack_to_array(const t_stack *s)
 	return (arr);
 }
 
-void	stack_index(t_stack *s)
+int	stack_index(t_stack *s)
 {
 	int	size;
 	int	i;
@@ -58,6 +60,8 @@ void	stack_index(t_stack *s)
 
 	size = (int)stack_get_size(s);
 	sorted = stack_to_array(s);
+	if (!sorted)
+		return (0);
 	quicksort(sorted, 0, size);
 	i = 0;
 	while (i++ < size)
@@ -69,4 +73,5 @@ void	stack_index(t_stack *s)
 		s = s->next;
 	}
 	free(sorted);
+	return (1);
 }

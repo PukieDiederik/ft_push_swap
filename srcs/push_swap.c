@@ -14,24 +14,23 @@
 #include "push_swap.h"
 #include "libft.h"
 
+static int	put_error(void);
+
 int	main(int argc, char **argv)
 {
 	t_stack			*input;
 	unsigned int	size;
 
-	free(0);
 	if (argc == 1)
 		return (0);
 	input = parse_args(argc - 1, argv + 1);
 	if (!input)
-	{
-		ft_putstr_fd("error\n", 1);
-		return (0);
-	}
+		return (put_error());
 	size = stack_get_size(input);
 	if (size == 1)
 		return (0);
-	stack_index(input);
+	if (!stack_index(input))
+		return (put_error());
 	if (size == 3)
 		generate_3(&input);
 	else if (size == 5)
@@ -39,4 +38,10 @@ int	main(int argc, char **argv)
 	else
 		generate(&input);
 	stack_clear(input);
+}
+
+static int	put_error(void)
+{
+	ft_putstr_fd("Error\n", 1);
+	return (0);
 }

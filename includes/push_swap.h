@@ -15,7 +15,7 @@
 
 # include "stack.h"
 
-// # define malloc(x) 0
+//# define malloc(x) 0
 
 t_stack	*parse_args(int argc, char **argv);
 void	quicksort(int *arr, int start, int end);

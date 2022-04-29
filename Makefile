@@ -57,7 +57,7 @@ RESET			= \033[0m
 ## Targets
 all: $(NAME)
 
-$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
+$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADERS)| $(OBJS_DIR)
 	@$(ECHO) "$(GREEN)>>>>> Compiling $(RESET)$(notdir $<)$(GREEN) -> $(RESET)$(notdir $@)$(RESET)"
 	@gcc $(CFLAGS) -c $(INCLUDES) $< -o $@
 
@@ -68,7 +68,7 @@ $(LIBFT):
 	@$(MAKE) -C libft bonus
 
 # regular targets
-$(NAME): $(LIBFT) $(OBJS_DIR) $(OBJS) $(HEADERS)
+$(NAME): $(LIBFT) $(OBJS_DIR) $(OBJS)
 	@$(ECHO) "$(GREEN)>>>>> Linking <<<<<$(RESET)"
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
 
