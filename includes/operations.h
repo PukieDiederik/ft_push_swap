@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operations.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drobert- <drobert-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drobert- <drobert-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 14:09:25 by drobert-          #+#    #+#             */
-/*   Updated: 2022/04/26 16:06:26 by drobert-         ###   ########.fr       */
+/*   Updated: 2022/04/29 13:55:14 by drobert-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ t_stack	*rrotate_a(t_stack **a);
 t_stack	*rotate_b(t_stack **b);
 t_stack	*rrotate_b(t_stack **a);
 
-t_stack	*swap_a(t_stack **b);
-t_stack	*swap_b(t_stack **b);
+void	rotate_minimum(t_stack **a, t_stack **b, t_stack *t, unsigned int dir);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: drobert- <drobert-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:28:48 by drobert-          #+#    #+#             */
-/*   Updated: 2022/04/28 15:44:04 by drobert-         ###   ########.fr       */
+/*   Updated: 2022/04/29 13:53:55 by drobert-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,6 @@ void	qs_partition(t_stack **a, t_stack **b, unsigned int amount, int *seq)
 	}
 }
 
-int	is_a_correct(t_stack **a, t_stack *target)
-{
-	return (((*a)->value > target->value && (*a)->next->value < target->value)
-		|| ((*a)->value == 0 && (*a)->next->value < target->value));
-}
-
 void	push_target(t_stack **a, t_stack **b, t_stack *target)
 {
 	unsigned int	i;
@@ -81,29 +75,7 @@ void	push_target(t_stack **a, t_stack **b, t_stack *target)
 	while (tmp != target && i++ < size)
 		tmp = tmp->prev;
 	dir = i / (size / 2 + 1);
-	if (dir)
-	{
-		while (!is_a_correct(a, target)
-			&& (*a)->value > target->value && *b != target)
-			rrotate(a, b);
-		while (*b != target)
-			rrotate_b(b);
-	}
-	else
-	{
-		while (!is_a_correct(a, target)
-			&& (*a)->value < target->value && *b != target)
-			rotate(a, b);
-		while (*b != target)
-			rotate_b(b);
-	}
-	while (!is_a_correct(a, target))
-	{
-		if ((*a)->value > (*b)->value)
-			rrotate_a(a);
-		else
-			rotate_a(a);
-	}
+	rotate_minimum(a, b, target, dir);
 	push_a(a, b);
 }
 
