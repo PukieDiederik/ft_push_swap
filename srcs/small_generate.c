@@ -19,16 +19,19 @@ void	generate_3(t_stack **a)
 {
 	if ((*a)->value > (*a)->prev->value && (*a)->value < (*a)->next->value)
 		swap_a(a);
-	else if ((*a)->next->value < (*a)->value && (*a)->next->value > (*a)->prev->value)
+	else if ((*a)->next->value < (*a)->value
+		&& (*a)->next->value > (*a)->prev->value)
 		rotate_a(a);
 	else if ((*a)->value > (*a)->next->value && (*a)->value < (*a)->prev->value)
 		rrotate_a(a);
-	else if ((*a)->prev->value < (*a)->value&& (*a)->prev->value > (*a)->next->value)
+	else if ((*a)->prev->value < (*a)->value
+		&& (*a)->prev->value > (*a)->next->value)
 	{
 		swap_a(a);
 		rrotate_a(a);
 	}
-	else if ((*a)->next->value > (*a)->value && (*a)->next->value < (*a)->prev->value)
+	else if ((*a)->next->value > (*a)->value
+		&& (*a)->next->value < (*a)->prev->value)
 	{
 		swap_a(a);
 		rotate_a(a);
