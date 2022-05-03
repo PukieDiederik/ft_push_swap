@@ -17,18 +17,18 @@ t_stack	*sort_one(t_stack **a, t_stack **b);
 
 void	generate_3(t_stack **a)
 {
-	if ((*a)->value == 1 && (*a)->prev->value == 0)
+	if ((*a)->value > (*a)->prev->value && (*a)->value < (*a)->next->value)
 		swap_a(a);
-	else if ((*a)->value == 2 && (*a)->prev->value == 0)
+	else if ((*a)->next->value < (*a)->value && (*a)->next->value > (*a)->prev->value)
 		rotate_a(a);
-	else if ((*a)->value == 1 && (*a)->prev->value == 2)
+	else if ((*a)->value > (*a)->next->value && (*a)->value < (*a)->prev->value)
 		rrotate_a(a);
-	else if ((*a)->value == 2 && (*a)->prev->value == 1)
+	else if ((*a)->prev->value < (*a)->value&& (*a)->prev->value > (*a)->next->value)
 	{
 		swap_a(a);
 		rrotate_a(a);
 	}
-	else if ((*a)->value == 0 && (*a)->prev->value == 2)
+	else if ((*a)->next->value > (*a)->value && (*a)->next->value < (*a)->prev->value)
 	{
 		swap_a(a);
 		rotate_a(a);
@@ -53,4 +53,10 @@ void	generate_5(t_stack **a)
 	generate_3(a);
 	sort_one(a, &b);
 	sort_one(a, &b);
+	if ((*a)->next->value == 0 || (*a)->next->next->value == 0)
+		while ((*a)->value != 0)
+			rrotate_a(a);
+	else
+		while ((*a)->value != 0)
+			rotate_a(a);
 }
